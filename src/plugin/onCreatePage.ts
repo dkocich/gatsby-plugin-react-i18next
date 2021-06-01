@@ -24,6 +24,7 @@ export const onCreatePage = async (
     language: string;
     path?: string;
     originalPath?: string;
+    matchPath?: string;
     routed?: boolean;
     pageOptions?: PageOptions;
   };
@@ -32,11 +33,13 @@ export const onCreatePage = async (
     path = page.path,
     originalPath = page.path,
     routed = false,
+    matchPath = page.matchPath,
     pageOptions
   }: GeneratePageParams): Promise<Page<PageContext>> => {
     return {
       ...page,
       path,
+      matchPath,
       context: {
         ...page.context,
         language,
@@ -94,7 +97,8 @@ export const onCreatePage = async (
   await BP.map(alternativeLanguages, async (lng) => {
     const localePage = await generatePage({
       language: lng,
-      path: `${lng}${page.path}`,
+      path: `/${lng}${page.path}`,
+      matchPath: page.matchPath ? `/${lng}${page.matchPath}` : undefined,
       routed: true
     });
     const regexp = new RegExp('/404/?$');
