@@ -41,9 +41,10 @@
     "build:ts": "babel src --out-dir dist --extensions .ts,.tsx",
     "build:defs": "tsc --declaration --outDir dist --emitDeclarationOnly",
     "dev": "babel -w src --out-dir dist --extensions .ts,.tsx",
-    "build": "NODE_ENV=production yarn run build:ts && yarn run build:defs",
+    "build": "NODE_ENV=production npm run build:ts && npm run build:defs",
     "format": "prettier --write '**/*.{js,jsx,json,ts,tsx,md}'",
-    "release": "release-it"
+    "release": "release-it",
+    "postinstall": "NODE_ENV=production npm run build:ts"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
@@ -66,8 +67,7 @@
     "bluebird": "^3.7.2",
     "browser-lang": "^0.1.0",
     "outdent": "^0.8.0",
-    "path-to-regexp": "^6.2.0",
-    "react-helmet": "^6.1.0"
+    "path-to-regexp": "^6.2.0"
   },
   "peerDependencies": {
     "gatsby": "^3.0.0",
@@ -96,8 +96,8 @@
     },
     "hooks": {
       "before:init": [
-        "yarn run format",
-        "yarn run prepare"
+        "npm run format",
+        "npm run prepare"
       ]
     }
   }
