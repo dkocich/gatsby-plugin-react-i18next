@@ -44,7 +44,7 @@
     "build": "NODE_ENV=production npm run build:ts && npm run build:defs",
     "format": "prettier --write '**/*.{js,jsx,json,ts,tsx,md}'",
     "release": "release-it",
-    "postinstall": "NODE_ENV=production npm run build:ts"
+    "postinstall": "npm run build"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
