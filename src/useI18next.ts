@@ -29,21 +29,22 @@ export const useI18next = (ns?: Namespace, options?: UseTranslationOptions) => {
   const removeLocalePart = (pathname: string) => {
     if (!routed) return pathname;
     const i = pathname.indexOf(`/`, 1);
+    if (i < 0) return '';
     return pathname.substring(i);
   };
 
   const navigate = (to: string, options?: NavigateOptions<{}>) => {
     const languagePath = getLanguagePath(context.language);
     const link = routed ? `${languagePath}${to}` : `${to}`;
-    return gatsbyNavigate(link, options);
+    return gatsbyNavigate(`${link}${window.location.search}${window.location.hash}`, options);
   };
 
   const changeLanguage = (language: string, to?: string, options?: NavigateOptions<{}>) => {
     const languagePath = getLanguagePath(language);
     const pathname = to || removeLocalePart(removePrefix(window.location.pathname));
-    const link = `${languagePath}${pathname}${window.location.search}`;
+    const link = `${languagePath}${pathname}`;
     localStorage.setItem(LANGUAGE_KEY, language);
-    return gatsbyNavigate(link, options);
+    return gatsbyNavigate(`${link}${window.location.search}${window.location.hash}`, options);
   };
 
   return {
@@ -52,6 +53,7 @@ export const useI18next = (ns?: Namespace, options?: UseTranslationOptions) => {
     t,
     ready,
     navigate,
-    changeLanguage
+    changeLanguage,
+    getLanguagePath
   };
 };
