@@ -36,7 +36,7 @@ export const useI18next = (ns?: Namespace, options?: UseTranslationOptions) => {
   const navigate = (to: string, options?: NavigateOptions<{}>) => {
     const languagePath = getLanguagePath(context.language);
     const link = routed ? `${languagePath}${to}` : `${to}`;
-    return gatsbyNavigate(`${link}${window.location.search}${window.location.hash}`, options);
+    return gatsbyNavigate(link, options);
   };
 
   const changeLanguage = (language: string, to?: string, options?: NavigateOptions<{}>) => {
@@ -44,7 +44,7 @@ export const useI18next = (ns?: Namespace, options?: UseTranslationOptions) => {
     const pathname = to || removeLocalePart(removePrefix(window.location.pathname));
     const link = `${languagePath}${pathname}`;
     localStorage.setItem(LANGUAGE_KEY, language);
-    return gatsbyNavigate(`${link}${window.location.search}${window.location.hash}`, options);
+    return gatsbyNavigate(link, options);
   };
 
   return {
