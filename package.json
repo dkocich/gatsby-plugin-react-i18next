@@ -38,7 +38,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "build:ts": "babel src --out-dir dist --extensions .ts,.tsx",
+    "build:ts": "cd src && babel . --out-dir ../dist --extensions .ts,.tsx",
     "build:defs": "tsc --declaration --outDir dist --emitDeclarationOnly",
     "dev": "babel -w src --out-dir dist --extensions .ts,.tsx",
     "prepare": "NODE_ENV=production yarn run build:ts && yarn run build:defs",
